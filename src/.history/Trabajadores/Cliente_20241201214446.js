@@ -103,14 +103,7 @@ const Cliente = () => {
     };
 
     return (
-        <div>
-            <h1 className="App App-link text-center">CALIFICACIONES DE LOS ALUMNOS</h1>
-
-            {/* Mostrar mensaje de error si ocurre */}
-            {error ? (
-                <div className="alert alert-danger text-center">x
-                    <strong>Error:</strong> {error.message}
-                </div>
+        
             ) : (
                 <div className="container mt-4">
                     {/* Tarjetas de alumnos */}

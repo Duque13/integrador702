@@ -74,17 +74,6 @@ const Cliente = () => {
 
     const chartOptions = {
         responsive: true,
-        plugins: {
-            legend: {
-                display: true,
-                position: 'top',
-            },
-            tooltip: {
-                callbacks: {
-                    label: (tooltipItem) => `Calificación: ${tooltipItem.raw}`,
-                },
-            },
-        },
         scales: {
             y: {
                 beginAtZero: true,
@@ -100,84 +89,47 @@ const Cliente = () => {
                 },
             },
         },
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top',
+            },
+        },
     };
 
     return (
         <div>
-            <h1 className="App App-link text-center">CALIFICACIONES DE LOS ALUMNOS</h1>
+            <h1 className="App App-link">CALIFICACIONES DE LOS ALUMNOS</h1>
 
             {/* Mostrar mensaje de error si ocurre */}
             {error ? (
-                <div className="alert alert-danger text-center">x
+                <div className="alert alert-danger text-center">
                     <strong>Error:</strong> {error.message}
                 </div>
             ) : (
+                // Tarjetas de alumnos con sus calificaciones
                 <div className="container mt-4">
-                    {/* Tarjetas de alumnos */}
                     <div className="row">
-    {alumnos.map((alumno) => (
-        <div className="col-md-6 mb-4" key={alumno.id}>
-            <div className="card shadow-sm h-100">
-                <div className="card-header bg-primary text-white text-center">
-                    <h5 className="card-title mb-0">{alumno.nombre}</h5>
-                </div>
-                <div className="card-body">
-                    <p><strong>ID:</strong> {alumno.id}</p>
-                    <p><strong>Cuenta:</strong> {alumno.cuenta}</p>
-                    <h6 className="mt-3">Calificaciones:</h6>
-                    <ul className="list-group list-group-flush">
-                        <li className="list-group-item">
-                            <strong>Práctica de Hilos:</strong> {alumno.practicas.practica_hilos}
-                        </li>
-                        <li className="list-group-item">
-                            <strong>Práctica de Socket:</strong> {alumno.practicas.practica_socket}
-                        </li>
-                        <li className="list-group-item">
-                            <strong>Práctica de Node:</strong> {alumno.practicas.practica_node}
-                        </li>
-                        <li className="list-group-item">
-                            <strong>Práctica de React:</strong> {alumno.practicas.practica_react}
-                        </li>
-                        <li className="list-group-item">
-                            <strong>Práctica de Git:</strong> {alumno.practicas.practica_git}
-                        </li>
-                    </ul>
-                </div>
-                <div className="card-footer text-muted text-center">
-                    Última actualización: {new Date().toLocaleDateString()}
-                </div>
-            </div>
-        </div>
-    ))}
-</div>
-
-
-                    {/* Tabla para comparar calificaciones */}
-                    <h3 className="text-center mt-4">Comparación de Calificaciones</h3>
-                    <table className="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Práctica de Hilos</th>
-                                <th>Práctica de Socket</th>
-                                <th>Práctica de Node</th>
-                                <th>Práctica de React</th>
-                                <th>Práctica de Git</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {alumnos.map((alumno) => (
-                                <tr key={alumno.id}>
-                                    <td>{alumno.nombre}</td>
-                                    <td>{alumno.practicas.practica_hilos}</td>
-                                    <td>{alumno.practicas.practica_socket}</td>
-                                    <td>{alumno.practicas.practica_node}</td>
-                                    <td>{alumno.practicas.practica_react}</td>
-                                    <td>{alumno.practicas.practica_git}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                        {alumnos.map((alumno) => (
+                            <div className="col-md-6 mb-4" key={alumno.id}>
+                                <div className="card h-100">
+                                    <div className="card-body">
+                                        <h5 className="card-title">ID: {alumno.id}</h5>
+                                        <p><strong>Cuenta:</strong> {alumno.cuenta}</p>
+                                        <p><strong>Nombre:</strong> {alumno.nombre}</p>
+                                        <h6>Calificaciones:</h6>
+                                        <ul>
+                                            <li>Práctica de Hilos: {alumno.practicas.practica_hilos}</li>
+                                            <li>Práctica de Socket: {alumno.practicas.practica_socket}</li>
+                                            <li>Práctica de Node: {alumno.practicas.practica_node}</li>
+                                            <li>Práctica de React: {alumno.practicas.practica_react}</li>
+                                            <li>Práctica de Git: {alumno.practicas.practica_git}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
 
                     {/* Gráfico de barras */}
                     <div style={{ width: '80%', margin: '0 auto', padding: '20px 0' }}>

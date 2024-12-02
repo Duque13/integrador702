@@ -104,53 +104,37 @@ const Cliente = () => {
 
     return (
         <div>
-            <h1 className="App App-link text-center">CALIFICACIONES DE LOS ALUMNOS</h1>
+            <h1 className="App App-link">CALIFICACIONES DE LOS ALUMNOS</h1>
 
             {/* Mostrar mensaje de error si ocurre */}
             {error ? (
-                <div className="alert alert-danger text-center">x
+                <div className="alert alert-danger text-center">
                     <strong>Error:</strong> {error.message}
                 </div>
             ) : (
                 <div className="container mt-4">
                     {/* Tarjetas de alumnos */}
                     <div className="row">
-    {alumnos.map((alumno) => (
-        <div className="col-md-6 mb-4" key={alumno.id}>
-            <div className="card shadow-sm h-100">
-                <div className="card-header bg-primary text-white text-center">
-                    <h5 className="card-title mb-0">{alumno.nombre}</h5>
-                </div>
-                <div className="card-body">
-                    <p><strong>ID:</strong> {alumno.id}</p>
-                    <p><strong>Cuenta:</strong> {alumno.cuenta}</p>
-                    <h6 className="mt-3">Calificaciones:</h6>
-                    <ul className="list-group list-group-flush">
-                        <li className="list-group-item">
-                            <strong>Práctica de Hilos:</strong> {alumno.practicas.practica_hilos}
-                        </li>
-                        <li className="list-group-item">
-                            <strong>Práctica de Socket:</strong> {alumno.practicas.practica_socket}
-                        </li>
-                        <li className="list-group-item">
-                            <strong>Práctica de Node:</strong> {alumno.practicas.practica_node}
-                        </li>
-                        <li className="list-group-item">
-                            <strong>Práctica de React:</strong> {alumno.practicas.practica_react}
-                        </li>
-                        <li className="list-group-item">
-                            <strong>Práctica de Git:</strong> {alumno.practicas.practica_git}
-                        </li>
-                    </ul>
-                </div>
-                <div className="card-footer text-muted text-center">
-                    Última actualización: {new Date().toLocaleDateString()}
-                </div>
-            </div>
-        </div>
-    ))}
-</div>
-
+                        {alumnos.map((alumno) => (
+                            <div className="col-md-6 mb-4" key={alumno.id}>
+                                <div className="card h-100">
+                                    <div className="card-body">
+                                        <h5 className="card-title text-primary">{alumno.nombre}</h5>
+                                        <p><strong>ID:</strong> {alumno.id}</p>
+                                        <p><strong>Cuenta:</strong> {alumno.cuenta}</p>
+                                        <h6>Calificaciones:</h6>
+                                        <ul>
+                                            <li>Práctica de Hilos: {alumno.practicas.practica_hilos}</li>
+                                            <li>Práctica de Socket: {alumno.practicas.practica_socket}</li>
+                                            <li>Práctica de Node: {alumno.practicas.practica_node}</li>
+                                            <li>Práctica de React: {alumno.practicas.practica_react}</li>
+                                            <li>Práctica de Git: {alumno.practicas.practica_git}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
 
                     {/* Tabla para comparar calificaciones */}
                     <h3 className="text-center mt-4">Comparación de Calificaciones</h3>

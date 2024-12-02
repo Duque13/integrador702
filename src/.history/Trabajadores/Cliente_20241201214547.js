@@ -108,8 +108,8 @@ const Cliente = () => {
 
             {/* Mostrar mensaje de error si ocurre */}
             {error ? (
-                <div className="alert alert-danger text-center">x
-                    <strong>Error:</strong> {error.message}
+                div className="alert alert-danger text-center">
+            <strong>Error:</strong> {error.message}
                 </div>
             ) : (
                 <div className="container mt-4">

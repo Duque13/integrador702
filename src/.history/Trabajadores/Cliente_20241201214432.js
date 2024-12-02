@@ -104,11 +104,11 @@ const Cliente = () => {
 
     return (
         <div>
-            <h1 className="App App-link text-center">CALIFICACIONES DE LOS ALUMNOS</h1>
+            <h1 className="App App-link">CALIFICACIONES DE LOS ALUMNOS</h1>
 
             {/* Mostrar mensaje de error si ocurre */}
             {error ? (
-                <div className="alert alert-danger text-center">x
+                <div className="alert alert-danger text-center">
                     <strong>Error:</strong> {error.message}
                 </div>
             ) : (

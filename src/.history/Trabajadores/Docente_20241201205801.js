@@ -29,19 +29,17 @@ const ListaDocentes = () => {
     const obtenerDatosGrafico = () => {
         const hombres = docentes.filter((docente) => docente.sexo === 'M').length;
         const mujeres = docentes.filter((docente) => docente.sexo === 'F').length;
-        const indefinido = docentes.filter((docente) => docente.sexo === 'l' || !docente.sexo).length; // Incluye valores nulos o no especificados
-    
+        const mujeres = docentes.filter((docente) => docente.sexo === '').length;
+
         return {
-            labels: ['Hombres', 'Mujeres', 'Indefinido'],
+            labels: ['Hombres', 'Mujeres'],
             datasets: [
                 {
                     label: 'Cantidad por sexo',
-                    data: [hombres, mujeres, indefinido], // Incluye los valores de "Indefinido"
-                    backgroundColor: ['#3498db', '#e74c3c', '#95a5a6'], // Colores para cada barra
-                    borderColor: ['#2980b9', '#c0392b', '#7f8c8d'],
-                    borderWidth: 1, // Ancho de la línea de cada barra
-                    
-    
+                    data: [hombres, mujeres],
+                    backgroundColor: ['#3498db', '#e74c3c'], // Colores de las barras
+                    borderColor: ['#2980b9', '#c0392b'],
+                    borderWidth: 1,
                 },
             ],
         };

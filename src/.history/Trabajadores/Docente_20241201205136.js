@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Bar } from 'react-chartjs-2';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { default as React, default as React, useEffect, useState } from 'react';
+import { Bar, Line } from 'react-chartjs-2';
 
 const ListaDocentes = () => {
     const [docentes, setDocentes] = useState([]);
@@ -15,7 +15,7 @@ const ListaDocentes = () => {
                 }
                 const data = await response.json();
                 setDocentes(data);
-                setError(null); // Limpia el error si la solicitud fue exitosa
+                setError(null);
             } catch (error) {
                 setError(error.message);
                 console.error('Fetch error:', error);
@@ -25,23 +25,39 @@ const ListaDocentes = () => {
         fetchDocentes();
     }, []);
 
-    // Preprocesa los datos para el gráfico
-    const obtenerDatosGrafico = () => {
+    // Datos para la gráfica por Sexo
+    const obtenerDatosPorSexo = () => {
         const hombres = docentes.filter((docente) => docente.sexo === 'M').length;
         const mujeres = docentes.filter((docente) => docente.sexo === 'F').length;
-        const indefinido = docentes.filter((docente) => docente.sexo === 'l' || !docente.sexo).length; // Incluye valores nulos o no especificados
-    
+
         return {
-            labels: ['Hombres', 'Mujeres', 'Indefinido'],
+            labels: ['Hombres', 'Mujeres'],
             datasets: [
                 {
                     label: 'Cantidad por sexo',
-                    data: [hombres, mujeres, indefinido], // Incluye los valores de "Indefinido"
-                    backgroundColor: ['#3498db', '#e74c3c', '#95a5a6'], // Colores para cada barra
-                    borderColor: ['#2980b9', '#c0392b', '#7f8c8d'],
-                    borderWidth: 1, // Ancho de la línea de cada barra
-                    
-    
+                    data: [hombres, mujeres],
+                    backgroundColor: ['#3498db', '#e74c3c'],
+                    borderColor: ['#2980b9', '#c0392b'],
+                    borderWidth: 1,
+                },
+            ],
+        };
+    };
+
+    // Datos para la gráfica de ID
+    const obtenerDatosPorID = () => {
+        const labels = docentes.map((docente) => `ID: ${docente.id}`); // Etiquetas con los IDs
+        const data = docentes.map(() => 1); // Asigna el valor 1 a cada ID para que todos aparezcan
+
+        return {
+            labels,
+            datasets: [
+                {
+                    label: 'Clientes por ID',
+                    data,
+                    backgroundColor: '#2ecc71',
+                    borderColor: '#27ae60',
+                    borderWidth: 1,
                 },
             ],
         };
@@ -78,11 +94,11 @@ const ListaDocentes = () => {
                 )}
             </div>
 
-            {/* Gráfico */}
+            {/* Gráfico de Clientes por Sexo */}
             <div className="mt-5">
                 <h2 className="text-center">Gráfico de Clientes por Sexo</h2>
                 <Bar
-                    data={obtenerDatosGrafico()}
+                    data={obtenerDatosPorSexo()}
                     options={{
                         responsive: true,
                         plugins: {
@@ -94,6 +110,35 @@ const ListaDocentes = () => {
                         scales: {
                             y: {
                                 beginAtZero: true,
+                            },
+                        },
+                    }}
+                />
+            </div>
+
+            {/* Gráfico de Clientes por ID */}
+            <div className="mt-5">
+                <h2 className="text-center">Gráfico de Clientes por ID</h2>
+                <Line
+                    data={obtenerDatosPorID()}
+                    options={{
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                            },
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                            },
+                            x: {
+                                ticks: {
+                                    autoSkip: false, // Muestra todas las etiquetas
+                                    maxRotation: 90, // Rotación máxima
+                                    minRotation: 45, // Rotación mínima
+                                },
                             },
                         },
                     }}

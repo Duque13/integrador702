@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Bar } from 'react-chartjs-2';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../App.css';
 
 const ListaDocentes = () => {
     const [docentes, setDocentes] = useState([]);
@@ -22,43 +22,26 @@ const ListaDocentes = () => {
             }
         };
 
+        // Llama a `fetchDocentes` inicialmente y luego cada 2 segundos
         fetchDocentes();
-    }, []);
+        const interval = setInterval(fetchDocentes, 2000);
 
-    // Preprocesa los datos para el gráfico
-    const obtenerDatosGrafico = () => {
-        const hombres = docentes.filter((docente) => docente.sexo === 'M').length;
-        const mujeres = docentes.filter((docente) => docente.sexo === 'F').length;
-        const indefinido = docentes.filter((docente) => docente.sexo === 'l' || !docente.sexo).length; // Incluye valores nulos o no especificados
-    
-        return {
-            labels: ['Hombres', 'Mujeres', 'Indefinido'],
-            datasets: [
-                {
-                    label: 'Cantidad por sexo',
-                    data: [hombres, mujeres, indefinido], // Incluye los valores de "Indefinido"
-                    backgroundColor: ['#3498db', '#e74c3c', '#95a5a6'], // Colores para cada barra
-                    borderColor: ['#2980b9', '#c0392b', '#7f8c8d'],
-                    borderWidth: 1, // Ancho de la línea de cada barra
-                    
-    
-                },
-            ],
-        };
-    };
+        // Limpia el intervalo en caso de desmontaje del componente
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <div className="container">
-            <h1 className="App-link text-center my-4">Lista de Clientes y Gráficos</h1>
+            <h1 className="App App-link text-center my-4">LISTA DE CLIENTES</h1>
 
-            {/* Mensaje de error */}
+            {/* Mostrar mensaje de error si ocurre */}
             {error && (
                 <div className="alert alert-danger text-center">
                     <strong>Error:</strong> {error}
                 </div>
             )}
 
-            {/* Lista de clientes */}
+            {/* Mostrar tarjetas de docentes */}
             <div className="row">
                 {docentes.length > 0 ? (
                     docentes.map((docente) => (
@@ -76,28 +59,6 @@ const ListaDocentes = () => {
                 ) : (
                     !error && <p className="text-center">Cargando clientes...</p>
                 )}
-            </div>
-
-            {/* Gráfico */}
-            <div className="mt-5">
-                <h2 className="text-center">Gráfico de Clientes por Sexo</h2>
-                <Bar
-                    data={obtenerDatosGrafico()}
-                    options={{
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                display: true,
-                                position: 'top',
-                            },
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                            },
-                        },
-                    }}
-                />
             </div>
         </div>
     );

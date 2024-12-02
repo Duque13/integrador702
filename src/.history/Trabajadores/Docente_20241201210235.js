@@ -39,7 +39,6 @@ const ListaDocentes = () => {
                     data: [hombres, mujeres, indefinido], // Incluye los valores de "Indefinido"
                     backgroundColor: ['#3498db', '#e74c3c', '#95a5a6'], // Colores para cada barra
                     borderColor: ['#2980b9', '#c0392b', '#7f8c8d'],
-                    borderWidth: 1, // Ancho de la línea de cada barra
                     
     
                 },
